@@ -94,7 +94,7 @@
   starship
   neofetch
   swww
-
+  ly
   ];  
 
   fonts.packages = with pkgs; [

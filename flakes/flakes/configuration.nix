@@ -62,6 +62,15 @@
     #jack.enable=true;
   };
 
+  # steam
+  #programs.steam = {
+    #enable = true;
+    #remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+    #dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+    #localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
+  #};
+
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.owen = {
     isNormalUser = true;
@@ -77,24 +86,39 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-  neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+
+  #text/terminal stuff idk
+  neovim
   kitty
-  firefox
-  rofi-wayland
-  #hyprpaper
-  stow
-  waybar
-  pywal
-  wget
-  git
-  mako
-  pipewire
-  wireplumber
-  discord
   starship
   neofetch
+  stow
+  wget
+  git
+  lf
+
+  #sound
+  pipewire
+  wireplumber
+
+  #todo: move to wm.nix?
+  rofi-wayland
+  waybar
+  mako
+
+  #misc
+  discord
+  firefox
+
+  #wallpapers
   swww
-  ly
+  pywal
+
+  #screenshots
+  grim
+  slurp
+  wl-clipboard
+  swappy
   ];  
 
   fonts.packages = with pkgs; [

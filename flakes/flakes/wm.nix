@@ -3,18 +3,21 @@
 #services.xserver = {
 #  enable = true;
 #
-#  displayManager = {
-#    sddm.enable = true;
-#    #defaultSession = "none+awesome";
+#  desktopManager = {
+#    xterm.enable = false;
 #  };
-#  #awesome
-#  windowManager.awesome = {
+#	
+#  displayManager = {
+#    defaultSession = "none+i3";
+#  };
+#
+  #i3
+#  windowManager.i3 = {
 #    enable = true;
-#    luaModules = with pkgs.luaPackages; [
-#      luarocks
-#      luadbi-mysql
-#    ];
 #   };
 #  };
-programs.hyprland.enable = true;
+programs.hyprland = {
+	enable = true;
+	xwayland.enable = true;
+};
 }

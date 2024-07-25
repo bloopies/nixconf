@@ -50,11 +50,8 @@
   services.xserver = {
     layout = "us";
     xkbVariant = "";
-  };
-  # programs
-  programs.hyprland.enable=true;
-  #programs.zsh.enable = true;  
-  programs.fish.enable = true;
+  }; 
+
   # sound
   security.rtkit.enable = true;
   services.pipewire = {
@@ -84,7 +81,6 @@
   kitty
   firefox
   rofi-wayland
-  hyprland
   #hyprpaper
   stow
   waybar

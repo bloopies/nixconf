@@ -1,7 +1,7 @@
 #!/usr/bin/env fish
 
 # Path to the folder containing your wallpapers
-set wallpaper_dir ~/path/to/your/wallpapers
+set wallpaper_dir ~/Wallpapers
 
 # Get the list of wallpaper files
 set wallpapers (ls $wallpaper_dir)
@@ -19,7 +19,7 @@ end
 while true
     for wallpaper in $wallpapers
         set_wallpaper $wallpaper_dir/$wallpaper
-        sleep 300
+        sleep 120
     end
 end
 

@@ -5,7 +5,10 @@
 		boot.kernelParams = [ "nvidia_drm.fbdev=1" "nvidia-drm.modeset=1" "nvidia.NVreg_PreserveVideoMemoryAllocations=1"];
 		hardware.opengl = {
 			enable = true;
+			driSupport = true;
+			driSupport32Bit = true;
 			};
+
 		services.xserver.videoDrivers = ["nvidia"];
 
 		environment.variables = {
@@ -45,7 +48,7 @@
 			nvtop
 			nvitop
 			libGL
-			gnome.gdm
+			#gnome.gdm
 		];
 	};
 }

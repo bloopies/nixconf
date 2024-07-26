@@ -62,13 +62,10 @@
     #jack.enable=true;
   };
 
-  # steam
-  #programs.steam = {
-    #enable = true;
-    #remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-    #dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
-    #localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
-  #};
+  #steam
+  programs.steam.enable = true;
+  programs.steam.gamescopeSession.enable = true; #add gamemoderun %command or camescope %command to steam settings per game
+  programs.gamemode.enable = true;
 
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
@@ -96,10 +93,12 @@
   wget
   git
   lf
+  ctpv
 
-  #sound
+  #sound/music
   pipewire
   wireplumber
+  termusic
 
   #todo: move to wm.nix?
   rofi-wayland
@@ -110,7 +109,7 @@
   discord
   firefox
 
-  #wallpapers
+  #wallpapers and themeing 
   swww
   pywal
 
@@ -126,6 +125,7 @@
   powerline-fonts
   powerline-symbols
   ];
+
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;

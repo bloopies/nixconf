@@ -1,0 +1,172 @@
+{
+  "layer": "top", "position": "top",
+  "modules-left": ["hyprland/window","custom/logo", "clock"],
+  //"modules-center": [  "hyprland/workspaces",],
+  "modules-right": ["group/tray_grp", "group/status_items" ],
+  "reload_style_on_change":true,
+
+"group/tray_grp": {
+    "orientation": "horizontal",
+    "modules": [
+        "tray"
+    ]
+},
+
+"group/status_items": {
+    "orientation": "horizontal",
+    "modules": [
+        "network"
+    ]
+},
+
+  "custom/logo": {
+    "format": "{}",
+    "exec": "~/.config/waybar/scripts/distro-icon.sh",
+    "return-type": "json"
+  },
+
+"tray": {
+    "icon-size": 15,
+    "spacing": 4
+},
+
+  "hyprland/workspaces": {
+	"format": "{icon}",
+	"format-icons": {
+		"1": "   ",
+		"2": "   ",
+		"3": "   ",
+		"4": "   ",
+		"5": "   ",
+		"active": "   ",
+		"default": "   " 
+	},
+       "persistent-workspaces": {
+         "*": [1, 2, 3, 4, 5 ]
+       }
+},
+
+
+"clock": {
+      "format": "{:%H:%M}", 
+      "format-alt": "{:%H:%M %b %d}",
+      "interval":1,
+      "tooltip-format": "\n<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+      "calendar-weeks-pos": "right",
+      "today-format": "<span color='#7645AD'><b><u>{}</u></b></span>",
+      "format-calendar": "<span color='#aeaeae'><b>{}</b></span>",
+      "format-calendar-weeks": "<span color='#aeaeae'><b>W{:%V}</b></span>",
+      "format-calendar-weekdays": "<span color='#aeaeae'><b>{}</b></span>",
+  },
+
+  "bluetooth": {
+  "format-on": "",
+  "format-off": "",
+  "format-disabled": "󰂲",
+  "format-connected": "󰂴",
+  "format-connected-battery": "{device_battery_percentage}% 󰂴",
+  "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
+  "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
+  "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+  "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%",
+  "on-click": "rofi-bluetooth",
+ }, 
+
+"network": {
+      "format-wifi": "   ",
+      "format-ethernet":"   ",
+      "format-disconnected": " ",
+      "tooltip-format": "{ipaddr}",
+      "tooltip-format-wifi": "{essid} ({signalStrength}%)  | {ipaddr}",
+      "tooltip-format-ethernet": "{ifname} 🖧 | {ipaddr}",
+      "on-click": "networkmanager_dmenu"
+    },
+
+"battery": {
+    "interval":1,
+        "states": {
+            "good": 95,
+            "warning": 30,
+            "critical": 20,
+            "very-critical": 10
+        },
+        "format": "{icon}  <span size='9pt' weight='bold'>{capacity}</span>",
+        "format-charging": "󰂄  <span size='9pt' weight='bold'>{capacity}</span>",
+        "format-plugged": "󰂄  <span size='9pt' weight='bold'>{capacity}</span>",
+        "format-icons": [
+          "󰁺",
+          "󰁻",
+          "󰁼",
+          "󰁽",
+          "󰁾",
+          "󰁿",
+          "󰂀",
+          "󰂁",
+          "󰂂",
+          "󰁹",
+        ],
+    },
+
+ "disk": {
+    "interval": 30,
+    "format": "  {percentage_used}%",
+    "path": "/"
+  },
+
+  "cpu": {
+      "interval": 1,
+      "format": " {usage}%",
+      "min-length": 6,
+      "max-length": 6,
+      "format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"],
+ },
+
+"memory": {
+  "format": " {percentage}%"
+},
+
+ "hyprland/window": {
+    "format": "",
+    "rewrite": {
+         "(.*) - Mozilla Firefox": "🌎 $1",
+         "(.*) - zsh": "> [$1]"
+    }
+},
+
+"temperature": {
+  "format": " {temperatureC}°C",            
+  "format-critical": " {temperatureC}°C",
+  "interval": 1,
+  "critical-threshold": 80,
+  "on-click": "foot btop",
+ },
+
+"pulseaudio": {
+  "format": "{icon}  <span size='9pt' weight='bold'>{volume}</span>",
+  "format-bluetooth":"󰂰",
+  "format-muted": "<span font='12'></span>",
+  "format-icons": {
+    "headphones": "",
+    "bluetooth": "󰥰",
+    "handsfree": "",
+    "headset": "󱡬",
+    "phone": "",
+    "portable": "",
+    "car": "",
+    "default": ["🕨","🕩","🕪"]
+  },
+  "justify": "center",
+  "on-click": "amixer sset Master toggle",
+  "on-click-right": "pavucontrol",
+  "tooltip-format": "{icon}  {volume}%"
+},
+
+"jack": {
+    "format": "{} 󱎔",
+    "format-xrun": "{xruns} xruns",
+    "format-disconnected": "DSP off",
+    "realtime": true
+},
+
+}
+

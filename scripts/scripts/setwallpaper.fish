@@ -9,7 +9,7 @@ set wallpapers (ls $wallpaper_dir)
 # Function to set wallpaper and apply pywal theme
 function set_wallpaper
     # Set the wallpaper using swww
-    swww img $argv[1] --transition-type wipe --transition-step 90 --transition-fps 60
+    swww img $argv[1] --transition-type wipe --transition-angle 30 --transition-step 90
 
     # Apply the pywal theme
     wal -i $argv[1]

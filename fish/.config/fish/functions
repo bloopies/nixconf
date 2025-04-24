@@ -1,0 +1,32 @@
+function unpack
+    # Check if an argument is provided
+    if test (count $argv) -eq 0
+        echo "Usage: unpack <file.zip>"
+        return 1
+    end
+
+    # Get the filename without the extension
+    set file $argv[1]
+    if not test -f $file
+        echo "Error: '$file' is not a valid file."
+        return 1
+    end
+
+    if not string match -r '\.zip$' $file
+        echo "Error: '$file' is not a .zip file."
+        return 1
+    end
+
+    # Extract the directory name
+    set dirname (basename $file .zip)
+
+    # Create the directory
+    mkdir -p $dirname
+
+    # Unzip the file into the directory
+    unzip $file -d $dirname
+
+    # Delete the original .zip file after extraction
+    rm $file
+end
+

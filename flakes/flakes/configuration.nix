@@ -11,11 +11,27 @@
       ./wm.nix
       ./sh.nix
       ./nvidia.nix
+      #./mount.nix
     ];
 
+
+  # drives
+
+  fileSystems."/mnt/ssd1" = {
+  	device = "dev/sda1";
+	options = ["nofail"];
+  };
+  fileSystems."/mnt/ssd2" = {
+  	device = "dev/sdb1";
+	options = ["nofail"];
+  };
+  fileSystems."/mnt/nvme2" = {
+  	device = "dev/nvme0n1p1";
+	#options = ["nofail"];
+  };
   # Bootloader.
   boot.loader.grub.enable = true;
-  boot.loader.grub.device = "/dev/nvme0n1";
+  boot.loader.grub.device = "/dev/nvme1n1";
   boot.loader.grub.useOSProber = true;
 
   networking.hostName = "nixos"; # Define your hostname.
@@ -24,6 +40,12 @@
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+
+  services.getty.autologinUser = "owen";
+
+  #fast shutdown
+  systemd.user.extraConfig = "DefaultTimeoutStopSec=10s";
+  systemd.extraConfig = "DefaultTimeoutStopSec=10s";
 
   # Enable networking
   networking.networkmanager.enable = true;
@@ -59,13 +81,18 @@
     alsa.enable=true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    #jack.enable=true;
+    jack.enable=true;
   };
 
+  #bluetooth
+  hardware.bluetooth.enable = true; # enables support for Bluetooth
+  hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
+  services.blueman.enable = true;
+
   #steam
-  programs.steam.enable = true;
-  programs.steam.gamescopeSession.enable = true; #add gamemoderun %command or camescope %command to steam settings per game
-  programs.gamemode.enable = true;
+  programs.steam = {
+  	enable = true;
+  };
 
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
@@ -80,11 +107,16 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
+  #allow std binaries
+  #programs.nix-ld.enable = true;
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
 
+
   #text/terminal stuff idk
+  vscode
   neovim
   kitty
   starship
@@ -94,11 +126,22 @@
   git
   lf
   ctpv
+  unzip
+  zathura
+  btop
+ 
+
+  #nix-index
+
+  obsidian
+  anki
 
   #sound/music
   pipewire
   wireplumber
-  termusic
+  #termusic
+  cmus
+
 
   #todo: move to wm.nix?
   rofi-wayland
@@ -106,8 +149,11 @@
   mako
 
   #misc
+  vesktop
   discord
   firefox
+  lutris
+  qbittorrent
 
   #wallpapers and themeing 
   swww
@@ -125,8 +171,19 @@
   powerline-fonts
   powerline-symbols
   ];
+  
+  #services.nginx.enable = true;
+  #services.nginx.virtualHosts."localhost" = {
+      #addSSL = true;
+      #enableACME = true;
+      #root = "/blgo/";
+  #};
+  #security.acme = {
+  #  acceptTerms = true;
+  #  defaults.email = "bleebloo22@gmail.com";
+  #}; 
 
-  # Some programs need SUID wrappers, can be configured further or are
+# Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
   # programs.gnupg.agent = {
@@ -154,7 +211,7 @@
   system.stateVersion = "23.11"; # Did you read the comment?
 
 nix = {
-  package = pkgs.nixFlakes;
+  package = pkgs.nixVersions.stable;
   extraOptions = ''
     experimental-features = nix-command flakes
   '';

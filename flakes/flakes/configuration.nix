@@ -92,10 +92,6 @@
 
     ''; 
 
-  systemd.tmpfiles.rules = [
-  "c /dev/null 0666 root root - - 1:3"
-  ];
-
 
   services.udisks2.enable = true; #for usb devices
   nixpkgs.overlays = [

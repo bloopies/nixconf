@@ -11,24 +11,9 @@
       ./wm.nix
       ./sh.nix
       ./nvidia.nix
-      #./mount.nix
+      ./mount.nix
     ];
 
-
-  # drives
-
-  fileSystems."/mnt/ssd1" = {
-  	device = "dev/sda1";
-	options = ["nofail"];
-  };
-  fileSystems."/mnt/ssd2" = {
-  	device = "dev/sdb1";
-	options = ["nofail"];
-  };
-  fileSystems."/mnt/nvme2" = {
-  	device = "dev/nvme0n1p1";
-	#options = ["nofail"];
-  };
   # Bootloader.
   boot.loader.grub.enable = true;
   boot.loader.grub.device = "/dev/nvme1n1";
@@ -92,8 +77,36 @@
   #steam
   programs.steam = {
   	enable = true;
-  };
+  }; 
 
+  #vial
+  services.udev.extraRules = ''
+      # Vial udev rule
+      SUBSYSTEM=="hidraw", 
+      ATTRS{serial}=="*vial:f64c2b3c*",
+      MODE="0660",
+      KERNEL="hidraw*",
+      GROUP="users",
+      TAG+="uaccess",
+      TAG+="udev-acl"
+
+    ''; 
+
+  systemd.tmpfiles.rules = [
+  "c /dev/null 0666 root root - - 1:3"
+  ];
+
+
+  services.udisks2.enable = true; #for usb devices
+  nixpkgs.overlays = [
+    (final: prev: {
+      calibre = prev.calibre.overrideAttrs (old: {
+        doCheck = false;
+	installCheckPhase = "echo skipping installCheckPhase";
+      });
+    })
+  ];
+  
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.owen = {
@@ -129,6 +142,8 @@
   unzip
   zathura
   btop
+  vial
+  dysk
  
 
   #nix-index
@@ -154,6 +169,7 @@
   firefox
   lutris
   qbittorrent
+  calibre
 
   #wallpapers and themeing 
   swww

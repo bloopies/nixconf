@@ -26,6 +26,11 @@
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
+  systemd.tmpfiles.rules = [
+    "c /dev/null 0666 root root - - 1:3"
+  ];
+
+
   services.getty.autologinUser = "owen";
 
   #fast shutdown
@@ -139,8 +144,7 @@
   zathura
   btop
   vial
-  dysk
- 
+  dysk 
 
   #nix-index
 
@@ -157,7 +161,7 @@
   #todo: move to wm.nix?
   rofi-wayland
   waybar
-  mako
+  tiramisu
 
   #misc
   vesktop
